@@ -1,3 +1,4 @@
+using GEL.Services.PostAPI.Models;
 using Microsoft.EntityFrameworkCore;
 
 namespace GEL.Services.PostAPI.DbContexts;
@@ -8,4 +9,6 @@ public class ApplicationDbContext : DbContext
     {
         
     }
+
+    public DbSet<Post> Posts { get; set; }
 }
