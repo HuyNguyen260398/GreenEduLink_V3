@@ -17,12 +17,12 @@ namespace GEL.Services.PostAPI.Models
 
         public int SubCategoryId { get; set; }
 
-        public string? Slug { get; set; }
+        public string Slug { get; set; } = default!;
 
-        public string? Thumbnail { get; set; }
+        public string Thumbnail { get; set; } = default!;
 
         [Required]
-        public string? Content { get; set; }
+        public string Content { get; set; } = default!;
 
         public DateTime CreatedAt { get; set; }
 

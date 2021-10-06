@@ -1,6 +1,7 @@
 using AutoMapper;
 using GEL.Services.PostAPI.DbContexts;
 using GEL.Services.PostAPI.Profiles;
+using GEL.Services.PostAPI.Repos;
 using Microsoft.EntityFrameworkCore;
 
 var builder = WebApplication.CreateBuilder(args);
@@ -13,6 +14,8 @@ builder.Services.AddDbContext<ApplicationDbContext>(options =>
 IMapper mapper = MappingConfig.RegisterMaps().CreateMapper();
 builder.Services.AddSingleton(mapper);
 builder.Services.AddAutoMapper(AppDomain.CurrentDomain.GetAssemblies());
+
+builder.Services.AddScoped<IPostRepo, PostRepo>();
 
 builder.Services.AddControllers();
 builder.Services.AddSwaggerGen(c =>

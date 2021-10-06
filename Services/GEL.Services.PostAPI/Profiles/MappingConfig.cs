@@ -11,8 +11,7 @@ namespace GEL.Services.PostAPI.Profiles
             var mappingConfig = new MapperConfiguration(config =>
             {
                 // Sources => Targets
-                config.CreateMap<PostDto, Post>();
-                config.CreateMap<Post, PostDto>();
+                config.CreateMap<PostDto, Post>().ReverseMap();
             });
 
             return mappingConfig;
