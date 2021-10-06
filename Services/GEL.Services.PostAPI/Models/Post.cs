@@ -1,36 +1,37 @@
 using System.ComponentModel.DataAnnotations;
 
-namespace GEL.Services.PostAPI.Models;
-
-public class Post
+namespace GEL.Services.PostAPI.Models
 {
-    [Key]
-    public int PostId { get; set; }
+    public class Post
+    {
+        [Key]
+        public int PostId { get; set; }
 
-    [Required]
-    public string Title { get; set; } = default!;
+        [Required]
+        public string Title { get; set; } = default!;
 
-    [Required]
-    public string Description { get; set; } = default!;
-    
-    public int CategoryId { get; set; }
-    
-    public int SubCategoryId { get; set; }
-    
-    public string? Slug { get; set; }
-    
-    public string? Thumbnail { get; set; }
-    
-    [Required]
-    public string? Content { get; set; }
-    
-    public DateTime CreatedAt { get; set; }
-    
-    public DateTime PublishedAt { get; set; }
-    
-    public DateTime UpdatedAt { get; set; }
-    
-    public int Views { get; set; }
-    
-    public int Comments { get; set; }
+        [Required]
+        public string Description { get; set; } = default!;
+
+        public int CategoryId { get; set; }
+
+        public int SubCategoryId { get; set; }
+
+        public string? Slug { get; set; }
+
+        public string? Thumbnail { get; set; }
+
+        [Required]
+        public string? Content { get; set; }
+
+        public DateTime CreatedAt { get; set; }
+
+        public DateTime PublishedAt { get; set; }
+
+        public DateTime UpdatedAt { get; set; }
+
+        public int Views { get; set; }
+
+        public int Comments { get; set; }
+    }
 }
