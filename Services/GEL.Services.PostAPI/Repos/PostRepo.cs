@@ -17,17 +17,30 @@ namespace GEL.Services.PostAPI.Repos
             this.mapper = mapper;
         }
 
-        public async Task<PostDto> CreateUpdatePost(PostDto postDto)
+        public async Task<PostDto> CreatePost(PostDto postDto)
         {
             Post post = mapper.Map<Post>(postDto);
-            if (post.PostId > 0)
-            {
-                db.Posts.Update(post);
-            }
-            else
-            {
-                db.Posts.Add(post);
-            }
+            db.Posts.Add(post);
+            await db.SaveChangesAsync();
+            return mapper.Map<PostDto>(post);
+        }
+
+        public async Task<IEnumerable<PostDto>> GetPosts()
+        {
+            IEnumerable<Post> postList = await db.Posts.ToListAsync();
+            return mapper.Map<IEnumerable<PostDto>>(postList);
+        }
+
+        public async Task<PostDto> GetPostById(int id)
+        {
+            Post post = await db.Posts.FirstOrDefaultAsync(p => p.PostId == id);
+            return mapper.Map<PostDto>(post);
+        }
+
+        public async Task<PostDto> UpdatePost(PostDto postDto)
+        {
+            Post post = mapper.Map<Post>(postDto);
+            db.Posts.Update(post);
             await db.SaveChangesAsync();
             return mapper.Map<PostDto>(post);
         }
@@ -49,18 +62,6 @@ namespace GEL.Services.PostAPI.Repos
             {
                 return false;
             }
-        }
-
-        public async Task<PostDto> GetPostById(int id)
-        {
-            Post post = await db.Posts.FirstOrDefaultAsync(p => p.PostId == id);
-            return mapper.Map<PostDto>(post);
-        }
-
-        public async Task<IEnumerable<PostDto>> GetPosts()
-        {
-            List<Post> postList = await db.Posts.ToListAsync();
-            return mapper.Map<List<PostDto>>(postList);
         }
     }
 }
