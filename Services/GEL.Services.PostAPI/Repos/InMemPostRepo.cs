@@ -70,31 +70,34 @@ namespace GEL.Services.PostAPI.Repos
             };
         }
 
-        public async Task<PostDto> CreatePost(PostDto postDto)
+        public async Task<bool> CreatePost(PostDto postDto)
         {
-            posts.Add(mapper.Map<Post>(postDto));
-            return await Task.FromResult(postDto);
+            var post = mapper.Map<Post>(postDto);
+            posts.Add(post);
+            return await Task.FromResult(true);
         }
 
         public async Task<IEnumerable<PostDto>> GetPosts()
         {
-            return await Task.FromResult(mapper.Map<IEnumerable<PostDto>>(posts));
+            var postsDto = mapper.Map<IEnumerable<PostDto>>(posts);
+            return await Task.FromResult(postsDto);
         }
 
         public async Task<PostDto> GetPostById(int id)
         {
-            return await Task.FromResult(mapper.Map<PostDto>(posts.SingleOrDefault(p => p.PostId == id)));
+            var postDto = mapper.Map<PostDto>(posts.SingleOrDefault(p => p.PostId == id));
+            return await Task.FromResult(postDto);
         }
 
-        public async Task<PostDto> UpdatePost(PostDto postDto)
+        public async Task<bool> UpdatePost(PostDto postDto)
         {
             posts[posts.FindIndex(p => p.PostId == postDto.PostId)] = mapper.Map<Post>(postDto);
-            return await Task.FromResult(postDto);
+            return await Task.FromResult(true);
         }
 
         public async Task<bool> DeletePost(int id)
         {
-            Post post = posts.FirstOrDefault(p => p.PostId == id);
+            var post = posts.FirstOrDefault(p => p.PostId == id);
             if (post == null)
             {
                 return await Task.FromResult(false);

@@ -17,51 +17,41 @@ namespace GEL.Services.PostAPI.Repos
             this.mapper = mapper;
         }
 
-        public async Task<PostDto> CreatePost(PostDto postDto)
+        public async Task<bool> CreatePost(PostDto postDto)
         {
-            Post post = mapper.Map<Post>(postDto);
+            var post = mapper.Map<Post>(postDto);
             db.Posts.Add(post);
-            await db.SaveChangesAsync();
-            return mapper.Map<PostDto>(post);
+            return await db.SaveChangesAsync() > 0;
         }
 
         public async Task<IEnumerable<PostDto>> GetPosts()
         {
-            IEnumerable<Post> postList = await db.Posts.ToListAsync();
+            var postList = await db.Posts.ToListAsync();
             return mapper.Map<IEnumerable<PostDto>>(postList);
         }
 
         public async Task<PostDto> GetPostById(int id)
         {
-            Post post = await db.Posts.FirstOrDefaultAsync(p => p.PostId == id);
+            var post = await db.Posts.FirstOrDefaultAsync(p => p.PostId == id);
             return mapper.Map<PostDto>(post);
         }
 
-        public async Task<PostDto> UpdatePost(PostDto postDto)
+        public async Task<bool> UpdatePost(PostDto postDto)
         {
-            Post post = mapper.Map<Post>(postDto);
+            var post = mapper.Map<Post>(postDto);
             db.Posts.Update(post);
-            await db.SaveChangesAsync();
-            return mapper.Map<PostDto>(post);
+            return await db.SaveChangesAsync() > 0;
         }
 
         public async Task<bool> DeletePost(int id)
         {
-            try
-            {
-                Post post = await db.Posts.FirstOrDefaultAsync(p => p.PostId == id);
-                if (post == null)
-                {
-                    return false;
-                }
-                db.Posts.Remove(post);
-                await db.SaveChangesAsync();
-                return true;
-            }
-            catch (Exception)
+            var post = await db.Posts.FirstOrDefaultAsync(p => p.PostId == id);
+            if (post == null)
             {
                 return false;
             }
+            db.Posts.Remove(post);
+            return await db.SaveChangesAsync() > 0;
         }
     }
 }

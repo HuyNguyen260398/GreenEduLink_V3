@@ -22,8 +22,8 @@ namespace GEL.Services.PostAPI.Controllers
         {
             try
             {
-                PostDto post = await postRepo.CreatePost(postDto);
-                responseDto.Result = post;
+                var isSuccess = await postRepo.CreatePost(postDto);
+                responseDto.Result = isSuccess;
             }
             catch (Exception e)
             {
@@ -70,8 +70,8 @@ namespace GEL.Services.PostAPI.Controllers
         {
             try
             {
-                PostDto post = await postRepo.UpdatePost(postDto);
-                responseDto.Result = post;
+                var isSuccess = await postRepo.UpdatePost(postDto);
+                responseDto.Result = isSuccess;
             }
             catch (Exception e)
             {
@@ -86,7 +86,7 @@ namespace GEL.Services.PostAPI.Controllers
         {
             try
             {
-                bool isSuccess = await postRepo.DeletePost(id);
+                var isSuccess = await postRepo.DeletePost(id);
                 responseDto.Result = isSuccess;
             }
             catch (Exception e)
