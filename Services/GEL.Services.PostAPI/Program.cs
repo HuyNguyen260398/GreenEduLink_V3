@@ -15,7 +15,8 @@ IMapper mapper = MappingConfig.RegisterMaps().CreateMapper();
 builder.Services.AddSingleton(mapper);
 builder.Services.AddAutoMapper(AppDomain.CurrentDomain.GetAssemblies());
 
-builder.Services.AddScoped<IPostRepo, PostRepo>();
+//builder.Services.AddScoped<IPostRepo, PostRepo>();
+builder.Services.AddScoped<IPostRepo, InMemPostRepo>();
 
 builder.Services.AddControllers();
 builder.Services.AddSwaggerGen(c =>
