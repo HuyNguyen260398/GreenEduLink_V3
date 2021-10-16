@@ -6,18 +6,18 @@ namespace GEL.Services.PostAPI.Repos
 {
     public class InMemPostRepo : IPostRepo
     {
-        private List<Post> posts;
+        private readonly List<Post> posts;
         private readonly IMapper mapper;
 
         public InMemPostRepo(IMapper mapper)
         {
             this.mapper = mapper;
-            SeedingPostList();
+            posts = SeedingPostList();
         }
 
-        private void SeedingPostList()
+        private static List<Post> SeedingPostList()
         {
-            posts = new()
+            return new()
             {
                 new Post
                 {
