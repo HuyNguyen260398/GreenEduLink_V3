@@ -2,7 +2,7 @@
 
 namespace GEL.WASM.Services.IServices
 {
-    public interface IPostService
+    public interface IPostService : IBaseService
     {
         Task<T> CreatePostAsync<T>(PostDto postDto);
         Task<T> GetAllPostsAsync<T>();

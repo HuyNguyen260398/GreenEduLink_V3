@@ -2,9 +2,7 @@
 using GEL.WASM.Models;
 using GEL.WASM.Services.IServices;
 using Newtonsoft.Json;
-using System.Net.Http;
 using System.Text;
-using static GEL.WASM.StaticDetails;
 
 namespace GEL.WASM.Services
 {
@@ -39,13 +37,13 @@ namespace GEL.WASM.Services
 
                 switch (apiRequest.ApiType)
                 {
-                    case ApiType.GET:
+                    case StaticDetails.ApiType.GET:
                         message.Method = HttpMethod.Get;
                         break;
-                    case ApiType.POST:
+                    case StaticDetails.ApiType.POST:
                         message.Method = HttpMethod.Post;
                         break;
-                    case ApiType.PUT:
+                    case StaticDetails.ApiType.PUT:
                         message.Method = HttpMethod.Put;
                         break;
                     default:
