@@ -31,7 +31,7 @@ namespace GEL.WASM.Services
             });
         }
 
-        public async Task<T> GetAllPostByIdAsync<T>(int id)
+        public async Task<T> GetPostByIdAsync<T>(int id)
         {
             return await SendAsync<T>(new ApiRequest()
             {

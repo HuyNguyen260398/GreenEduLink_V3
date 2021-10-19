@@ -1,0 +1,48 @@
+﻿@page "/posts/"
+@using Newtonsoft.Json
+@inject IPostService _postService
+
+<PageTitle>Posts</PageTitle>
+
+<h1>Post List</h1>
+
+@if (Posts.Count < 1)
+{
+    <h2>There are no posts.</h2> 
+}
+else
+{
+    <table class="table table-responsive">
+        <thead>
+            <tr>
+                <th>Id</th>
+                <th>Title</th>
+                <th>Description</th>
+                <th></th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var post in Posts)
+            {
+                <tr>
+                    <td>@post.PostId</td>
+                    <td>@post.Title</td>
+                    <td>@post.Description</td>
+                </tr>
+            }
+        </tbody>
+    </table>
+}
+
+@code {
+    private IList<PostDto> Posts;
+
+    protected async override Task OnInitializedAsync()
+    {
+        var response = await _postService.GetAllPostsAsync<ResponseDto>();
+        if (response != null && response.IsSuccess)
+        {
+            Posts = JsonConvert.DeserializeObject<IList<PostDto>>(Convert.ToString(response.Result));
+        }
+    }
+}
