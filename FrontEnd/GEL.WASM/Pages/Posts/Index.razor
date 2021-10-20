@@ -6,7 +6,7 @@
 
 <h1>Post List</h1>
 
-@if (Posts.Count < 1)
+@if (Posts == null || Posts.Count < 1)
 {
     <h2>There are no posts.</h2> 
 }
