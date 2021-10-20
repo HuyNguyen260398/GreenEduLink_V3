@@ -6,6 +6,15 @@
 
 <h1>Post List</h1>
 
+<a href="#" class="btn btn-primary">
+    <span class="oi oi-plus"></span>
+    Create New Post
+</a>
+
+<br />
+<br />
+<br />
+
 @if (Posts == null || Posts.Count < 1)
 {
     <h2>There are no posts.</h2> 
@@ -28,6 +37,17 @@ else
                     <td>@post.PostId</td>
                     <td>@post.Title</td>
                     <td>@post.Description</td>
+                    <td>
+                        <a href="#" class="btn btn-primary">
+                            <span class="oi oi-book"></span>
+                        </a>
+                        <a href="#" class="btn btn-warning">
+                            <span class="oi oi-pencil"></span>
+                        </a>
+                        <a href="#" class="btn btn-danger">
+                            <span class="oi oi-trash"></span>
+                        </a>
+                    </td>
                 </tr>
             }
         </tbody>
