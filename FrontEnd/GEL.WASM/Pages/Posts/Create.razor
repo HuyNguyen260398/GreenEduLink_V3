@@ -1,0 +1,72 @@
+﻿@page "/posts/create/"
+@inject IPostService _postService
+@inject NavigationManager _navManager
+
+<h1>Create Post</h1>
+<br />
+<br />
+<br />
+
+<EditForm Model="Post" OnValidSubmit="HandleCreate">
+    <DataAnnotationsValidator />
+    <ValidationSummary />
+    <div class="form-group">
+        <label for="title">Book Title</label>
+        <InputText @bind-Value="Post.Title" class="form-control" id="title" />
+    </div>
+    <div class="form-group">
+        <label for="description">Description</label>
+        <InputTextArea @bind-Value="Post.Description" class="form-control" id="description" />
+    </div>
+    <div class="form-group">
+        <label for="category-id">Category Id</label>
+        <InputNumber @bind-Value="Post.CategoryId" class="form-control" id="category-id" />
+    </div>
+    <div class="form-group">
+        <label for="sub-category-id">Sub-Category Id</label>
+        <InputNumber @bind-Value="Post.SubCategoryId" class="form-control" id="sub-category-id" />
+    </div>
+    <div class="form-group">
+        <label for="slug">Slug</label>
+        <InputText @bind-Value="Post.Slug" class="form-control" id="slug" />
+    </div>
+    <div class="form-group">
+        <label for="thumbnail">Thumbnail</label>
+        <InputText @bind-Value="Post.Thumbnail" class="form-control" id="thumbnail" />
+    </div>
+    <div class="form-group">
+        <label for="content">Content</label>
+        <InputTextArea @bind-Value="Post.Content" class="form-control" id="content" />
+    </div>
+    <button class="btn btn-primary mt-4" type="submit">
+        <span class="oi oi-plus"></span>
+        Create Post
+    </button>
+    <button @onclick="BackToList" class="btn btn-outline-secondary mt-4">
+        <span class="oi oi-media-skip-backward"></span>
+        Back To List
+    </button>
+</EditForm>
+
+@code {
+    private PostDto Post = new();
+
+    private async Task HandleCreate()
+    {
+        Post.Thumbnail = "";
+        Post.CreatedAt = DateTime.Now;
+        Post.Views = 0;
+        Post.Comments = 0;
+
+        var response = await _postService.CreatePostAsync<ResponseDto>(Post);
+        if (response != null && response.IsSuccess)
+        {
+            BackToList();
+        }
+    }
+
+    private void BackToList()
+    {
+        _navManager.NavigateTo("/posts/");
+    }
+}

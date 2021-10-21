@@ -8,21 +8,21 @@ namespace GEL.Services.PostAPI.Models
         public int PostId { get; set; }
 
         [Required]
-        public string Title { get; set; } = default!;
+        public string? Title { get; set; }
 
         [Required]
-        public string Description { get; set; } = default!;
+        public string? Description { get; set; }
 
         public int CategoryId { get; set; }
 
         public int SubCategoryId { get; set; }
 
-        public string Slug { get; set; } = default!;
+        public string? Slug { get; set; }
 
-        public string Thumbnail { get; set; } = default!;
+        public string? Thumbnail { get; set; }
 
         [Required]
-        public string Content { get; set; } = default!;
+        public string? Content { get; set; }
 
         public DateTime CreatedAt { get; set; }
 
