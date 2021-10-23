@@ -7,36 +7,36 @@
 <br />
 <br />
 
-<EditForm Model="Post" OnValidSubmit="HandleCreate">
+<EditForm Model="post" OnValidSubmit="HandleCreate">
     <DataAnnotationsValidator />
     <ValidationSummary />
     <div class="form-group">
-        <label for="title">Book Title</label>
-        <InputText @bind-Value="Post.Title" class="form-control" id="title" />
+        <label for="title">Title</label>
+        <InputText @bind-Value="post.Title" class="form-control" id="title" />
     </div>
     <div class="form-group">
         <label for="description">Description</label>
-        <InputTextArea @bind-Value="Post.Description" class="form-control" id="description" />
+        <InputTextArea @bind-Value="post.Description" class="form-control" id="description" />
     </div>
     <div class="form-group">
         <label for="category-id">Category Id</label>
-        <InputNumber @bind-Value="Post.CategoryId" class="form-control" id="category-id" />
+        <InputNumber @bind-Value="post.CategoryId" class="form-control" id="category-id" />
     </div>
     <div class="form-group">
         <label for="sub-category-id">Sub-Category Id</label>
-        <InputNumber @bind-Value="Post.SubCategoryId" class="form-control" id="sub-category-id" />
+        <InputNumber @bind-Value="post.SubCategoryId" class="form-control" id="sub-category-id" />
     </div>
     <div class="form-group">
         <label for="slug">Slug</label>
-        <InputText @bind-Value="Post.Slug" class="form-control" id="slug" />
+        <InputText @bind-Value="post.Slug" class="form-control" id="slug" />
     </div>
     <div class="form-group">
         <label for="thumbnail">Thumbnail</label>
-        <InputText @bind-Value="Post.Thumbnail" class="form-control" id="thumbnail" />
+        <InputText @bind-Value="post.Thumbnail" class="form-control" id="thumbnail" />
     </div>
     <div class="form-group">
         <label for="content">Content</label>
-        <InputTextArea @bind-Value="Post.Content" class="form-control" id="content" />
+        <InputTextArea @bind-Value="post.Content" class="form-control" id="content" />
     </div>
     <button class="btn btn-primary mt-4" type="submit">
         <span class="oi oi-plus"></span>
@@ -49,16 +49,16 @@
 </EditForm>
 
 @code {
-    private PostDto Post = new();
+    private PostDto post = new();
 
     private async Task HandleCreate()
     {
-        Post.Thumbnail = "";
-        Post.CreatedAt = DateTime.Now;
-        Post.Views = 0;
-        Post.Comments = 0;
+        post.Thumbnail = "";
+        post.CreatedAt = DateTime.Now;
+        post.Views = 0;
+        post.Comments = 0;
 
-        var response = await _postService.CreatePostAsync<ResponseDto>(Post);
+        var response = await _postService.CreatePostAsync<ResponseDto>(post);
         if (response != null && response.IsSuccess)
         {
             BackToList();

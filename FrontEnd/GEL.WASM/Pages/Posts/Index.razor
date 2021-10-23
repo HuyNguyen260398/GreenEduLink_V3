@@ -1,5 +1,4 @@
 ﻿@page "/posts/"
-@using Newtonsoft.Json
 @inject IPostService _postService
 
 <PageTitle>Posts</PageTitle>
@@ -15,7 +14,7 @@
 <br />
 <br />
 
-@if (Posts == null || Posts.Count < 1)
+@if (postList == null || postList.Count < 1)
 {
     <h2>There are no posts.</h2> 
 }
@@ -31,7 +30,7 @@ else
             </tr>
         </thead>
         <tbody>
-            @foreach (var post in Posts)
+            @foreach (var post in postList)
             {
                 <tr>
                     <td>@post.PostId</td>
@@ -41,7 +40,7 @@ else
                         <a href="#" class="btn btn-primary">
                             <span class="oi oi-book"></span>
                         </a>
-                        <a href="#" class="btn btn-warning">
+                        <a href="/post/edit/@post.PostId" class="btn btn-warning">
                             <span class="oi oi-pencil"></span>
                         </a>
                         <a href="#" class="btn btn-danger">
@@ -55,14 +54,14 @@ else
 }
 
 @code {
-    private IList<PostDto>? Posts;
+    private IList<PostDto>? postList;
 
     protected async override Task OnInitializedAsync()
     {
         var response = await _postService.GetAllPostsAsync<ResponseDto>();
         if (response != null && response.IsSuccess)
         {
-            Posts = JsonConvert.DeserializeObject<IList<PostDto>>(Convert.ToString(response.Result));
+            postList = JsonConvert.DeserializeObject<IList<PostDto>>(response.Result.ToString());
         }
     }
 }
