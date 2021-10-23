@@ -1,4 +1,4 @@
-﻿@page "/posts/create/"
+﻿@page "/posts/create"
 @inject IPostService _postService
 @inject NavigationManager _navManager
 
@@ -67,6 +67,6 @@
 
     private void BackToList()
     {
-        _navManager.NavigateTo("/posts/");
+        _navManager.NavigateTo("/posts");
     }
 }

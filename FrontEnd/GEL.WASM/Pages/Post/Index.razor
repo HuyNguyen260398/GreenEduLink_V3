@@ -1,11 +1,11 @@
-﻿@page "/posts/"
+﻿@page "/posts"
 @inject IPostService _postService
 
 <PageTitle>Posts</PageTitle>
 
 <h1>Post List</h1>
 
-<a href="/posts/create/" class="btn btn-primary">
+<a href="/posts/create" class="btn btn-primary">
     <span class="oi oi-plus"></span>
     Create New Post
 </a>
@@ -37,7 +37,7 @@ else
                     <td>@post.Title</td>
                     <td>@post.Description</td>
                     <td>
-                        <a href="#" class="btn btn-primary">
+                        <a href="post/view/@post.PostId" class="btn btn-primary">
                             <span class="oi oi-book"></span>
                         </a>
                         <a href="/post/edit/@post.PostId" class="btn btn-warning">
