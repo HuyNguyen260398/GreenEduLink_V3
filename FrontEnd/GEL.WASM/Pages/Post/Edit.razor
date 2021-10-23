@@ -48,16 +48,17 @@ else
             <label for="content">Content</label>
             <InputTextArea @bind-Value="post.Content" class="form-control" id="content" />
         </div>
-        <button class="btn btn-primary" type="submit">
+        <button class="btn btn-primary mt-4" type="submit">
             <span class="oi oi-check"></span>
             Update Post
         </button>
-        <button @onclick="BackToList" class="btn btn-outline-secondary">
-            <span class="oi oi-media-skip-backward"></span>
-            Back To List
-        </button>
     </EditForm>
 }
+
+<button @onclick="BackToList" class="btn btn-secondary mt-4">
+    <span class="oi oi oi-arrow-left"></span>
+    Back To List
+</button>
 
 @code {
     [Parameter]
