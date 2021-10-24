@@ -1,6 +1,33 @@
+using GEL.Services.IdentityServer;
+using GEL.Services.IdentityServer.DbContexts;
+using GEL.Services.IdentityServer.Models;
+using Microsoft.AspNetCore.Identity;
+using Microsoft.EntityFrameworkCore;
+
 var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
+builder.Services.AddDbContext<ApplicationDbContext>(options =>
+    options.UseSqlServer(builder.Configuration.GetConnectionString("DefaultConnection")));
+
+builder.Services.AddIdentity<ApplicationUser, IdentityRole>()
+                .AddEntityFrameworkStores<ApplicationDbContext>()
+                .AddDefaultTokenProviders();
+
+builder.Services.AddIdentityServer(options =>
+{
+    options.Events.RaiseInformationEvents = true;
+    options.Events.RaiseSuccessEvents = true;
+    options.Events.RaiseFailureEvents = true;
+    options.Events.RaiseErrorEvents = true;
+    options.EmitStaticAudienceClaim = true;
+})
+.AddInMemoryIdentityResources(StaticDetails.IdentityResources)
+.AddInMemoryApiScopes(StaticDetails.ApiScopes)
+.AddInMemoryClients(StaticDetails.Clients)
+.AddAspNetIdentity<ApplicationUser>()
+.AddDeveloperSigningCredential();
+
 builder.Services.AddControllersWithViews();
 
 var app = builder.Build();
@@ -17,7 +44,7 @@ app.UseHttpsRedirection();
 app.UseStaticFiles();
 
 app.UseRouting();
-
+app.UseIdentityServer();
 app.UseAuthorization();
 
 app.MapControllerRoute(

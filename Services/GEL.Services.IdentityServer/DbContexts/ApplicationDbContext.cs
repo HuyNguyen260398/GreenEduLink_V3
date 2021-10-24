@@ -8,7 +8,6 @@ namespace GEL.Services.IdentityServer.DbContexts
     {
         public ApplicationDbContext(DbContextOptions<ApplicationDbContext> options) : base(options)
         {
-
         }
     }
 }

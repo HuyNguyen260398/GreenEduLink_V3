@@ -37,16 +37,16 @@ namespace GEL.Services.IdentityServer
                 },
                 new Client
                 {
-                    ClientId = "mango",
-                    ClientSecrets = { new Secret("secrte".Sha256()) },
+                    ClientId = "gel",
+                    ClientSecrets = { new Secret("secret".Sha256()) },
                     AllowedGrantTypes = GrantTypes.Code,
-                    RedirectUris = { "http://localhost:44382/signin-oidc" },
-                    PostLogoutRedirectUris = { "http://localhost:44382/signout-callback-iodc" },
+                    RedirectUris = { "https://localhost:44382/signin-oidc" },
+                    PostLogoutRedirectUris = { "https://localhost:44382/signout-callback-oidc" },
                     AllowedScopes = new List<string>
                     {
                         IdentityServerConstants.StandardScopes.OpenId,
-                        IdentityServerConstants.StandardScopes.Profile,
                         IdentityServerConstants.StandardScopes.Email,
+                        IdentityServerConstants.StandardScopes.Profile,
                         "gel"
                     }
                 }
