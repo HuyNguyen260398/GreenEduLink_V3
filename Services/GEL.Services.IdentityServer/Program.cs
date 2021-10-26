@@ -1,5 +1,6 @@
 using GEL.Services.IdentityServer;
 using GEL.Services.IdentityServer.DbContexts;
+using GEL.Services.IdentityServer.Initializer;
 using GEL.Services.IdentityServer.Models;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
@@ -8,7 +9,8 @@ var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
 builder.Services.AddDbContext<ApplicationDbContext>(options =>
-    options.UseSqlServer(builder.Configuration.GetConnectionString("DefaultConnection")));
+    options.UseSqlServer(builder.Configuration.GetConnectionString("DefaultConnection")), 
+    ServiceLifetime.Transient);
 
 builder.Services.AddIdentity<ApplicationUser, IdentityRole>()
                 .AddEntityFrameworkStores<ApplicationDbContext>()
@@ -28,6 +30,8 @@ builder.Services.AddIdentityServer(options =>
 .AddAspNetIdentity<ApplicationUser>()
 .AddDeveloperSigningCredential();
 
+builder.Services.AddScoped<IDbInitializer, DbInitializer>();
+
 builder.Services.AddControllersWithViews();
 
 var app = builder.Build();
@@ -46,6 +50,8 @@ app.UseStaticFiles();
 app.UseRouting();
 app.UseIdentityServer();
 app.UseAuthorization();
+
+app.Services.CreateScope().ServiceProvider.GetRequiredService<IDbInitializer>().Initialize();
 
 app.MapControllerRoute(
     name: "default",
