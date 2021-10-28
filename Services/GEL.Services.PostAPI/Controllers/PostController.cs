@@ -1,5 +1,6 @@
 ﻿using GEL.Services.PostAPI.Dtos;
 using GEL.Services.PostAPI.Repos;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
 namespace GEL.Services.PostAPI.Controllers
@@ -17,6 +18,7 @@ namespace GEL.Services.PostAPI.Controllers
             responseDto = new ResponseDto();
         }
 
+        [Authorize]
         [HttpPost]
         public async Task<object> CreatePost([FromBody] PostDto postDto)
         {
@@ -33,6 +35,7 @@ namespace GEL.Services.PostAPI.Controllers
             return responseDto;
         }
 
+        [Authorize]
         [HttpGet]
         public async Task<object> GetPost()
         {
@@ -49,6 +52,7 @@ namespace GEL.Services.PostAPI.Controllers
             return responseDto;
         }
 
+        [Authorize]
         [HttpGet("{id}")]
         public async Task<object> GetPostById(int id)
         {
@@ -65,6 +69,7 @@ namespace GEL.Services.PostAPI.Controllers
             return responseDto;
         }
 
+        [Authorize]
         [HttpPut]
         public async Task<object> UpdatePost([FromBody] PostDto postDto)
         {
@@ -81,6 +86,7 @@ namespace GEL.Services.PostAPI.Controllers
             return responseDto;
         }
 
+        [Authorize(Roles = "Admin")]
         [HttpDelete("{id}")]
         public async Task<object> DeletePost(int id)
         {
