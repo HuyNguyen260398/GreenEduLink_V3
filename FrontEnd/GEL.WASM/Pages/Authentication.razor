@@ -1,0 +1,19 @@
+﻿@page "/authentication/{action}"
+@inject NavigationManager _navManager
+@inject IConfiguration _config
+
+<RemoteAuthenticatorView Action="@Action">
+    <LogOut>
+        @{
+            var authority = (string)_config["Auth0:Authority"];
+            var clientId = (string)_config["Auth0:ClientId"];
+
+            _navManager.NavigateTo($"{authority}/v2/logout?client_id={clientId}");
+        }
+    </LogOut>
+</RemoteAuthenticatorView>
+
+@code {
+    [Parameter]
+    public string Action { get; set; }
+}

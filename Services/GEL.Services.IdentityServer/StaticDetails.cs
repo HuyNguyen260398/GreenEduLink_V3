@@ -40,8 +40,8 @@ namespace GEL.Services.IdentityServer
                     ClientId = "gel",
                     ClientSecrets = { new Secret("secret".Sha256()) },
                     AllowedGrantTypes = GrantTypes.Code,
-                    RedirectUris = { "https://localhost:44382/signin-oidc" },
-                    PostLogoutRedirectUris = { "https://localhost:44382/signout-callback-oidc" },
+                    RedirectUris = { "https://localhost:44342/signin-oidc" },
+                    PostLogoutRedirectUris = { "https://localhost:44342/signout-callback-oidc" },
                     AllowedScopes = new List<string>
                     {
                         IdentityServerConstants.StandardScopes.OpenId,

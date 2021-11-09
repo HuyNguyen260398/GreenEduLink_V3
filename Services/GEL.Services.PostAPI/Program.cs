@@ -2,6 +2,7 @@ using AutoMapper;
 using GEL.Services.PostAPI.DbContexts;
 using GEL.Services.PostAPI.Profiles;
 using GEL.Services.PostAPI.Repos;
+using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.IdentityModel.Tokens;
 using Microsoft.OpenApi.Models;
@@ -30,23 +31,33 @@ builder.Services.AddScoped<IPostRepo, PostRepo>();
 
 builder.Services.AddControllers();
 
-builder.Services.AddAuthentication("Bearer")
-                .AddJwtBearer("Bearer", options =>
-                {
-                    options.Authority = "https://localhost:7102/";
-                    options.TokenValidationParameters = new TokenValidationParameters
-                    {
-                        ValidateAudience = false
-                    };
-                });
+//builder.Services.AddAuthentication("Bearer")
+//                .AddJwtBearer("Bearer", options =>
+//                {
+//                    options.Authority = "https://localhost:7102/";
+//                    options.TokenValidationParameters = new TokenValidationParameters
+//                    {
+//                        ValidateAudience = false
+//                    };
+//                });
 
-builder.Services.AddAuthorization(options =>
+//builder.Services.AddAuthorization(options =>
+//{
+//    options.AddPolicy("ApiScope", policy =>
+//    {
+//        policy.RequireAuthenticatedUser();
+//        policy.RequireClaim("scope", "gel");
+//    });
+//});
+
+builder.Services.AddAuthentication(options =>
 {
-    options.AddPolicy("ApiScope", policy =>
-    {
-        policy.RequireAuthenticatedUser();
-        policy.RequireClaim("scope", "gel");
-    });
+    options.DefaultAuthenticateScheme = JwtBearerDefaults.AuthenticationScheme;
+    options.DefaultChallengeScheme = JwtBearerDefaults.AuthenticationScheme;
+}).AddJwtBearer(options =>
+{
+    options.Authority = builder.Configuration["Auth0:Authority"];
+    options.Audience = builder.Configuration["Auth0:ApiIdentifier"];
 });
 
 builder.Services.AddSwaggerGen(c =>
@@ -93,6 +104,7 @@ app.UseHttpsRedirection();
 
 app.UseCors("CorsPolicy");
 
+app.UseAuthentication();
 app.UseAuthorization();
 
 app.MapControllers();

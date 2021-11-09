@@ -7,7 +7,7 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "GEL.WASM", "FrontEnd\GEL.WA
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "GEL.Services.PostAPI", "Services\GEL.Services.PostAPI\GEL.Services.PostAPI.csproj", "{D280C544-BF9E-4EBF-ADDB-D9218AFF7813}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "GEL.Services.IdentityServer", "Services\GEL.Services.IdentityServer\GEL.Services.IdentityServer.csproj", "{4C4AF86A-F20F-4E25-B15B-93CD52F1A61C}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "GEL.Services.IdentityServer", "Services\GEL.Services.IdentityServer\GEL.Services.IdentityServer.csproj", "{4C4AF86A-F20F-4E25-B15B-93CD52F1A61C}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
